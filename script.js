@@ -21,18 +21,21 @@ function logOut() {
 
 // Register an account
 
-document.getElementById('form-box').addEventListener('submit', function(event) {
-  event.preventDefault(); // Prevent form submission
+var registrationForm = document.getElementById('form-box');
+if (registrationForm) {
+  registrationForm.addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form submission
 
-  // Get input values
-  var username = document.getElementById('username').value;
-  var password = document.getElementById('password').value;
+    // Get input values
+    var username = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
 
-  // Create user object
-  var user = {
-    username: username,
-    password: password
-  };
+    // Create user object
+    var user = {
+      username: username,
+      password: password
+    };
+
 
   // Check if local storage already has registered users
   var registeredUsers = localStorage.getItem('registeredUsers');
