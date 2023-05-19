@@ -34,7 +34,10 @@ if (registrationForm) {
     var user = {
       username: username,
       password: password
+        }
+      }
     };
+
     
   // Check if local storage already has registered users
   var registeredUsers = localStorage.getItem('registeredUsers');
