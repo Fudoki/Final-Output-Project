@@ -25,7 +25,7 @@ var registrationForm = document.getElementById('form-box');
 if (registrationForm) {
   registrationForm.addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent form submission
-
+  }
     // Get input values
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
@@ -34,7 +34,7 @@ if (registrationForm) {
     var user = {
       username: username,
       password: password
-        }
+        
       }
     };
 
