@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="adminstyle.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+  <div class="sidebar">
+    <div class="logo">
+      <a href="#" class="logo"><i class="fas fa-tooth"></i> pncCare. </a>
+    </div>
+    <ul>
+      <li><a href="#" id="appointmentsLink">Appointments</a></li>
+      <li><a href="#" id="usersLink">Registered Users</a></li>
+      <li><a href="index.html" id="adminLogout">Logout</a></li>
+
+    </ul>
+  </div>
+  <div class="content" id="appointmentsContent">
+    <h2>Appointment</h2><br>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Contact Number</th>
+          <th>Email</th>
+          <th>Dentist</th>
+        </tr>
+      </thead>
+      <tbody id="appointmentTableBody">
+        <!-- Add your table rows here dynamically using JavaScript -->
+      </tbody>
+    </table>
+  </div>
+
+  <div class="content" id="usersContent">
+    <h2>Registered Users</h2>
+    <br>
+    <table id="users-table">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Password</th>
+        </tr>
+      </thead>
+      <tbody id="users-table-body">
+        <!-- Table rows for registered users will be dynamically added here -->
+      </tbody>
+    </table>
+  </div>
+
+
+  <script>
+    // Hide all content sections except for the "Appointments" section
+
+    document.getElementById("usersContent").style.display = "none";
+
+
+    // Show the "Appointments" section by default
+    document.getElementById("appointmentsContent").style.display = "block";
+
+    // Add event listeners to the navbar links
+    document.getElementById("appointmentsLink").addEventListener("click", function () {
+      showContent("appointmentsContent");
+    });
+
+
+    document.getElementById("usersLink").addEventListener("click", function () {
+      showContent("usersContent");
+    });
+
+    function showContent(contentId) {
+      // Hide all content sections
+      var contentSections = document.getElementsByClassName("content");
+      for (var i = 0; i < contentSections.length; i++) {
+        contentSections[i].style.display = "none";
+      }
+
+      // Show the selected content section
+      document.getElementById(contentId).style.display = "block";
+    }
+  </script>
+
+  <script>
+    // Function to display the appointments on the UI
+    function displayAppointments() {
+      var appointmentTableBody = document.getElementById("appointmentTableBody");
+      var appointments = JSON.parse(localStorage.getItem("appointments")) || [];
+
+      // Clear the existing table rows
+      appointmentTableBody.innerHTML = "";
+
+      // Loop through the appointments and create table rows
+      appointments.forEach(function (appointment, index) {
+        var row = document.createElement("tr");
+
+        // Create table cells and populate them with appointment data
+        var idCell = document.createElement("td");
+        idCell.textContent = index + 1; // Use index + 1 for ID numbering
+        row.appendChild(idCell);
+
+        var nameCell = document.createElement("td");
+        nameCell.textContent = appointment.fullName;
+        row.appendChild(nameCell);
+
+        var ageCell = document.createElement("td");
+        ageCell.textContent = appointment.age;
+        row.appendChild(ageCell);
+
+        var contactCell = document.createElement("td");
+        contactCell.textContent = appointment.contactNumber;
+        row.appendChild(contactCell);
+
+        var emailCell = document.createElement("td");
+        emailCell.textContent = appointment.email;
+        row.appendChild(emailCell);
+
+        var dentistCell = document.createElement("td");
+        dentistCell.textContent = appointment.doctor;
+        row.appendChild(dentistCell);
+
+        appointmentTableBody.appendChild(row);
+      });
+    }
+
+    // Load and display appointments on page load
+    window.addEventListener("load", function () {
+      displayAppointments();
+    });
+    //retrieves the registered usesrs from the local storage and display it
+    //retrieves the registered usesrs from the local storage and display it
+    document.addEventListener('DOMContentLoaded', () => {
+      const usersTableBody = document.getElementById('users-table-body');
+
+      // Retrieve registered users from local storage
+      const registeredUsers = localStorage.getItem('registeredUsers');
+      if (registeredUsers) {
+        const parsedUsers = JSON.parse(registeredUsers);
+
+        // Iterate over the registered users and create table rows
+        parsedUsers.forEach(user => {
+          const newRow = document.createElement('tr');
+
+          const usernameCell = document.createElement('td');
+          usernameCell.textContent = user.username;
+
+          const passwordCell = document.createElement('td');
+          passwordCell.textContent = user.password;
+
+          newRow.appendChild(usernameCell);
+          newRow.appendChild(passwordCell);
+
+          usersTableBody.appendChild(newRow);
+        });
+
+      }
+    });
+
+
+  </script>
+</body>
+
+</html>
